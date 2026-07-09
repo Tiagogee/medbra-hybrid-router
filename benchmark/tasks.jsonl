@@ -1,0 +1,3 @@
+{"prompt": "Classifique a intencao (responda so o rotulo): 'quanto custa a consulta?' Opcoes: preco, receita, urgencia, suporte", "expect": "preco"}
+{"prompt": "Classifique a intencao (responda so o rotulo): 'preciso renovar minha receita do Brasil' Opcoes: preco, receita, urgencia, suporte", "expect": "receita"}
+{"prompt": "Classifique a intencao (responda so o rotulo): 'nao consigo entrar na minha conta' Opcoes: preco, receita, urgencia, suporte", "expect": "suporte"}
