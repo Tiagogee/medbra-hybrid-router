@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedBra — Investor / Hackathon Deck</title>
+<style>
+:root{--bg:#0B2E36;--green:#0E6E5C;--sand:#F4F0E8;--coral:#FF6A3D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#06181c;font-family:'Segoe UI',system-ui,Arial,sans-serif;color:var(--sand)}
+.slide{width:100vw;height:100vh;display:none;flex-direction:column;justify-content:center;padding:6vh 8vw;position:relative;background:var(--bg)}
+.slide.active{display:flex}
+.kicker{color:var(--coral);font-weight:800;letter-spacing:2px;text-transform:uppercase;font-size:.9rem;margin-bottom:14px}
+h1{font-size:3.4rem;line-height:1.05;margin-bottom:16px}
+h2{font-size:2.5rem;margin-bottom:20px}
+.big{font-size:5rem;font-weight:900;color:var(--coral);line-height:1}
+p,li{font-size:1.35rem;line-height:1.5;color:#d8e2e0;max-width:60ch}
+ul{margin:14px 0 0 22px}li{margin:8px 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+img{max-width:100%;border-radius:12px;border:1px solid var(--green)}
+.pill{display:inline-block;background:var(--green);color:var(--sand);padding:5px 14px;border-radius:999px;font-size:.95rem;margin:4px 6px 0 0}
+.foot{position:absolute;bottom:3vh;left:8vw;right:8vw;display:flex;justify-content:space-between;color:var(--green);font-size:.85rem}
+.nav{position:fixed;bottom:16px;right:20px;z-index:9;color:var(--green);font-size:.8rem;background:#06181c;padding:6px 10px;border-radius:8px;border:1px solid var(--green)}
+.mode{position:fixed;top:16px;right:20px;z-index:9;color:var(--sand);font-size:.75rem;background:#06181c;padding:6px 10px;border-radius:8px;border:1px solid var(--coral);cursor:pointer}
+.quote{font-style:italic;color:var(--sand);font-size:1.6rem;border-left:4px solid var(--coral);padding-left:20px;margin-top:20px}
+.stat{text-align:center}.stat .n{font-size:3rem;font-weight:900;color:var(--coral)}.stat .l{color:var(--green)}
+.stats{display:flex;gap:50px;margin-top:26px}
+@media print{.slide{display:flex!important;page-break-after:always;height:100vh}.nav,.mode{display:none}}
+</style></head>
+<body>
+<div class="mode" id="mode" onclick="toggleMode()">MODE: INVESTOR (10) — click for HACKATHON (6)</div>
+<div class="nav" id="nav">← → to navigate · P to print</div>
+
+<!-- 1 TITLE -->
+<section class="slide" data-h="1" data-i="1">
+  <div class="kicker">MedBra AI Labs · AMD Hackathon ACT II</div>
+  <h1>MedBra<br>Hybrid Router</h1>
+  <p>An AI orchestration platform for Portuguese-speaking healthcare — routing medical conversations between local and cloud LLMs.</p>
+  <div style="margin-top:24px"><span class="pill">Gemma on AMD</span><span class="pill">Fireworks</span><span class="pill">Live telemedicine startup</span></div>
+  <div class="foot"><span>medbra.tech</span><span>github.com/Tiagogee/medbra-hybrid-router</span></div>
+</section>
+
+<!-- 2 PROBLEM -->
+<section class="slide" data-h="1" data-i="2">
+  <div class="kicker">The Problem</div>
+  <h2>Getting sick abroad is a financial trap</h2>
+  <div class="two">
+    <div><p>A simple US urgent-care visit costs <b style="color:var(--coral)">$500–$2,000</b>. So <b>4.5M+ Brazilians abroad</b> postpone care, self-diagnose, and suffer through symptoms in a language they don't fully master.</p></div>
+    <div class="stat"><div class="big">$1,847</div><div class="l" style="color:var(--green);margin-top:10px">a real ER bill for a sore throat</div></div>
+  </div>
+</section>
+
+<!-- 3 SOLUTION -->
+<section class="slide" data-h="1" data-i="3">
+  <div class="kicker">The Solution</div>
+  <h2>$39 doctor, in Portuguese — powered by smart routing</h2>
+  <p>MedBra is a <b>live</b> telemedicine service. Its brain is the Hybrid Router: every message goes to the <b>cheapest model that's still accurate enough</b> — and safety never touches a paid model.</p>
+  <img src="../assets/router_flow.png" style="margin-top:22px" alt="router flow">
+</section>
+
+<!-- 4 HOW IT WORKS -->
+<section class="slide" data-h="1" data-i="4">
+  <div class="kicker">How it works</div>
+  <h2>Local first · tokens last · safety always</h2>
+  <ul>
+    <li><b>0️⃣ Medical Safety Guard</b> — deterministic, 0 tokens. Emergency → 911 + human. Prescription ask → safe refusal.</li>
+    <li><b>1️⃣ Local Gemma</b> on the AMD GPU pod — $0.</li>
+    <li><b>2️⃣ Fireworks</b> (Gemma-2 / Llama, AMD-hosted) — a 1-token judge decides if it's confident enough.</li>
+    <li><b>3️⃣ Claude</b> — only for complex + sensitive health.</li>
+  </ul>
+</section>
+
+<!-- 5 DEMO -->
+<section class="slide" data-h="1" data-i="5">
+  <div class="kicker">Live Demo</div>
+  <h2>One router, four outcomes</h2>
+  <div class="two">
+    <ul>
+      <li>💬 "quanto custa?" → cheapest tier, <b>~$0</b></li>
+      <li>🩺 "meu filho tem febre" → <b>forced to top tier</b></li>
+      <li>🚨 "dor no peito" → <b>0 tokens</b>, straight to 911 + human</li>
+      <li>⛔ "que remédio tomar?" → safe refusal</li>
+    </ul>
+    <div><p style="color:var(--green)">web demo → <b style="color:var(--sand)">web/index.html</b></p><p style="margin-top:8px;color:var(--green)">CLI → <b style="color:var(--sand)">python demo.py</b></p></div>
+  </div>
+</section>
+
+<!-- 6 IMPACT -->
+<section class="slide" data-h="1" data-i="6">
+  <div class="kicker">Impact</div>
+  <h2>84% cheaper — safety intact</h2>
+  <div class="two">
+    <img src="../assets/cost_model.png" alt="cost">
+    <div><p><b>15% of messages stay on the top tier on purpose.</b> We optimize FAQs, never clinical judgment.</p>
+    <div class="stats"><div class="stat"><div class="n">−84%</div><div class="l">cost/msg</div></div><div class="stat"><div class="n">0</div><div class="l">tokens on emergencies</div></div></div></div>
+  </div>
+</section>
+
+<!-- 7 MARKET (investor) -->
+<section class="slide" data-h="0" data-i="7">
+  <div class="kicker">Market</div>
+  <h2>4.5M Brazilians abroad — and every diaspora after</h2>
+  <div class="stats">
+    <div class="stat"><div class="n">2M+</div><div class="l">Brazilians in the US (beachhead)</div></div>
+    <div class="stat"><div class="n">$39</div><div class="l">per consult · ~$29 margin</div></div>
+    <div class="stat"><div class="n">$10/mo</div><div class="l">RapiDoc cost/life · $0 marginal to 150</div></div>
+  </div>
+  <p style="margin-top:26px">Same core → per-country modules: Portugal, Canada, UK, Spain. The router makes each new market cheap to serve.</p>
+</section>
+
+<!-- 8 TRACTION (investor) -->
+<section class="slide" data-h="0" data-i="8">
+  <div class="kicker">Traction</div>
+  <h2>Not a demo — a running company</h2>
+  <ul>
+    <li>✅ <b>Live pay-first pipeline</b>: Stripe → activation → doctor on screen in &lt;30 min (real $39 charges settled)</li>
+    <li>✅ Official WhatsApp Cloud API + Chatwoot attendant ("Bia")</li>
+    <li>✅ Cinematic content engine, brand, CRM, automations (n8n)</li>
+    <li>🚀 Hybrid Router = the v2 brain of Bia</li>
+  </ul>
+</section>
+
+<!-- 9 BUSINESS/SCALE (investor) -->
+<section class="slide" data-h="0" data-i="9">
+  <div class="kicker">Why it scales</div>
+  <h2>Cost stays flat while volume explodes</h2>
+  <img src="../assets/benchmark.png" style="max-height:56vh;margin:0 auto" alt="scaling">
+  <p style="margin-top:16px">~$10k/yr saved at 500k msgs/mo — margin that compounds as we add countries.</p>
+</section>
+
+<!-- 10 VISION -->
+<section class="slide" data-h="1" data-i="10">
+  <div class="kicker">The Vision</div>
+  <h2>An operating system for Portuguese-speaking healthcare</h2>
+  <p>The patrimony isn't the AI — it's the system that uses <i>any</i> AI in the best way. Model-agnostic by design: survives Claude 6, GPT-6, Gemini Ultra.</p>
+  <div class="quote">"Onde tiver um brasileiro, tem um médico brasileiro."</div>
+  <div class="foot"><span>MedBra AI Labs — Tiago (CEO) + Axis (AI CTO)</span><span>Criciúma → Orlando → the world 🇧🇷🌎</span></div>
+</section>
+
+<script>
+let mode='investor', idx=0;
+function slides(){return [...document.querySelectorAll('.slide')].filter(s=>mode==='investor'||s.dataset.h==='1')}
+function show(i){const s=slides();idx=Math.max(0,Math.min(i,s.length-1));document.querySelectorAll('.slide').forEach(x=>x.classList.remove('active'));s[idx].classList.add('active');document.getElementById('nav').textContent=`${idx+1}/${s.length} · ← → · P to print`}
+function toggleMode(){mode=mode==='investor'?'hackathon':'investor';document.getElementById('mode').textContent=mode==='investor'?'MODE: INVESTOR (10) — click for HACKATHON (6)':'MODE: HACKATHON (6) — click for INVESTOR (10)';show(0)}
+document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(idx+1);if(e.key==='ArrowLeft')show(idx-1);if(e.key.toLowerCase()==='p')window.print();if(e.key.toLowerCase()==='m')toggleMode()});
+show(0);
+</script></body></html>

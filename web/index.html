@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MedBra Hybrid Router — Live Demo</title>
+<style>
+:root{--bg:#0B2E36;--green:#0E6E5C;--sand:#F4F0E8;--coral:#FF6A3D}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--sand);font-family:'Segoe UI',system-ui,Arial,sans-serif;
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 16px}
+h1{font-size:1.9rem;letter-spacing:.5px}
+.sub{color:var(--green);margin:6px 0 22px;font-size:1rem}
+.card{background:#0f3b45;border:1px solid var(--green);border-radius:16px;padding:22px;width:min(760px,100%);box-shadow:0 8px 40px rgba(0,0,0,.35)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.chip{background:#0B2E36;border:1px solid var(--green);color:var(--sand);padding:8px 12px;border-radius:999px;cursor:pointer;font-size:.86rem;transition:.15s}
+.chip:hover{background:var(--green)}
+.row{display:flex;gap:10px}
+input{flex:1;background:#0B2E36;border:1px solid var(--green);color:var(--sand);padding:13px 14px;border-radius:10px;font-size:1rem}
+button{background:var(--coral);color:#0B2E36;border:0;padding:0 22px;border-radius:10px;font-weight:800;cursor:pointer;font-size:1rem}
+.pipe{margin-top:22px;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.stage{background:#0B2E36;border:1px solid #1c4e59;border-radius:12px;padding:12px 8px;text-align:center;opacity:.35;transition:.35s;transform:translateY(6px)}
+.stage.on{opacity:1;transform:translateY(0);border-color:var(--coral);box-shadow:0 0 0 2px rgba(255,106,61,.25)}
+.stage .t{font-size:.72rem;color:var(--green);text-transform:uppercase;letter-spacing:.5px}
+.stage .v{font-size:.95rem;font-weight:700;margin-top:5px}
+.out{margin-top:20px;background:#0B2E36;border-left:4px solid var(--coral);border-radius:8px;padding:16px;min-height:56px;font-size:1.02rem;line-height:1.5}
+.meta{display:flex;gap:18px;margin-top:14px;flex-wrap:wrap;color:var(--green);font-size:.9rem}
+.meta b{color:var(--sand)}
+.tag{display:inline-block;background:var(--coral);color:#0B2E36;font-weight:800;padding:2px 9px;border-radius:6px;font-size:.8rem}
+.foot{margin-top:26px;color:var(--green);font-size:.85rem;text-align:center}
+.badge{background:#0B2E36;border:1px solid var(--green);border-radius:8px;padding:3px 8px;font-size:.78rem;color:var(--sand)}
+</style></head>
+<body>
+<h1>MedBra Hybrid Router</h1>
+<div class="sub">local first · tokens last · safety always</div>
+<div class="card">
+  <div class="chips" id="chips"></div>
+  <div class="row"><input id="msg" placeholder="Digite uma mensagem de paciente…" value="quanto custa a consulta?"><button onclick="route()">Route ▶</button></div>
+  <div class="pipe" id="pipe"></div>
+  <div class="out" id="out">Escolha um exemplo ou digite acima e clique <b>Route</b>.</div>
+  <div class="meta" id="meta"></div>
+</div>
+<div class="foot">MedBra AI Labs · AMD Developer Hackathon ACT II · <span class="badge">Gemma on AMD + Fireworks</span><br>
+<i>"Onde tiver um brasileiro, tem um médico brasileiro."</i></div>
+<script>
+const STAGES=["Patient","Safety Guard","Local Gemma","Fireworks","Claude"];
+const EX=["quanto custa a consulta?","como funciona pra falar com o médico?","meu filho está com febre alta","estou com dor no peito e falta de ar","que remédio posso tomar pra dor?"];
+const pipe=document.getElementById('pipe'),chips=document.getElementById('chips');
+STAGES.forEach(s=>{const d=document.createElement('div');d.className='stage';d.innerHTML=`<div class="t">${s}</div><div class="v">—</div>`;pipe.appendChild(d)});
+EX.forEach(e=>{const c=document.createElement('div');c.className='chip';c.textContent=e.length>34?e.slice(0,32)+'…':e;c.onclick=()=>{document.getElementById('msg').value=e;route()};chips.appendChild(c)});
+const EMERG=/dor no peito|falta de ar|desmai|convuls|sangramento intenso|infarto|avc/i;
+const BLOCK=/rem[eé]dio|receita|prescri|dosagem|diagn/i;
+const SYMPT=/febre|dor|sintoma|enjoo|t[oô]ntur|mal[- ]estar/i;
+function classify(m){ // deterministic front guard + cheap-tier decision (demo of the real pipeline)
+  if(EMERG.test(m))return{stop:1,stage:1,tag:"EMERGENCY",resp:"⚠️ Pode ser emergência. Procure o serviço local AGORA (911). A MedBra não substitui emergência.",human:1,cost:0,tokens:0,model:"safety guard"};
+  if(BLOCK.test(m))return{stop:1,stage:1,tag:"BLOCKED (compliance)",resp:"Posso te orientar sobre a MedBra, mas sintomas precisam ser avaliados em consulta.",human:0,cost:0,tokens:0,model:"safety guard"};
+  const symptom=SYMPT.test(m);
+  return{stop:0,stage:symptom?4:2,forced:symptom,tag:symptom?"SYMPTOM → top tier":"FAQ → cheapest tier",
+    resp:symptom?"Entendo. Vou te conectar a um médico brasileiro para avaliar isso com segurança. Posso já iniciar seu atendimento?":"A consulta custa $39 — médico brasileiro, em português, sem seguro. Quer o link?",
+    human:0,cost:symptom?0.00021:0.0,tokens:symptom?180:75,model:symptom?"claude (sensitive)":"local gemma / fireworks ($0–~0)"};
+}
+function route(){
+  const m=document.getElementById('msg').value;const r=classify(m);
+  document.querySelectorAll('.stage').forEach((s,i)=>{s.classList.remove('on');s.querySelector('.v').textContent='—'});
+  const seq=[0];for(let i=1;i<=r.stage;i++)seq.push(i);
+  document.getElementById('out').textContent='';document.getElementById('meta').innerHTML='';
+  seq.forEach((idx,k)=>setTimeout(()=>{
+    const st=document.querySelectorAll('.stage')[idx];st.classList.add('on');
+    st.querySelector('.v').textContent=idx===0?"in":(idx===r.stage?"✓ chosen":"skip↓");
+    if(k===seq.length-1){
+      document.getElementById('out').innerHTML=`<span class="tag">${r.tag}</span><br><br>${r.resp}`;
+      document.getElementById('meta').innerHTML=
+        `<span>model: <b>${r.model}</b></span><span>cost: <b>$${r.cost.toFixed(6)}</b></span><span>tokens: <b>${r.tokens}</b></span>`+
+        (r.forced?`<span><b style="color:#FF6A3D">⬆️ forced to top tier (safety)</b></span>`:'')+
+        (r.human?`<span><b style="color:#FF6A3D">🧑 escalate to human</b></span>`:'');
+    }
+  },k*380));
+}
+route();
+</script></body></html>
