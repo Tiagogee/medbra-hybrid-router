@@ -1,0 +1,17 @@
+Scenario                       $/month
+--------------------------------------
+Frontier-only (Claude)            5.94
+MedBra Hybrid Router              0.95
+--------------------------------------
+SAVINGS                           4.99  (84% cut)
+Annualized                       59.93
+
+Safety note: 15% (symptom/sensitive) is INTENTIONALLY kept on the top tier.
+We optimize FAQs, never clinical judgment.
+
+=== Scaling (same 84% efficiency, growing volume) ===
+  msgs/month    frontier $    hybrid $    saved/yr $
+       3,000          5.94        0.95         59.88
+      30,000         59.40        9.50        598.75
+     150,000        297.00       47.52       2993.76
+     500,000        990.00      158.40       9979.20

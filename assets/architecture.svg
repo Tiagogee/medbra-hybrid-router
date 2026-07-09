@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 620" font-family="Arial,Helvetica,sans-serif">
+  <rect width="1000" height="620" fill="#0B2E36"/>
+  <text x="500" y="52" fill="#F4F0E8" font-size="30" font-weight="bold" text-anchor="middle">MedBra Hybrid Router</text>
+  <text x="500" y="82" fill="#0E6E5C" font-size="17" text-anchor="middle">local-first · tokens-last · safety-always</text>
+
+  <!-- incoming -->
+  <rect x="380" y="110" width="240" height="46" rx="8" fill="#0E6E5C"/>
+  <text x="500" y="139" fill="#F4F0E8" font-size="17" font-weight="bold" text-anchor="middle">Patient message (WhatsApp)</text>
+  <line x1="500" y1="156" x2="500" y2="188" stroke="#F4F0E8" stroke-width="2"/>
+
+  <!-- safety -->
+  <rect x="300" y="188" width="400" height="60" rx="10" fill="#FF6A3D"/>
+  <text x="500" y="214" fill="#0B2E36" font-size="17" font-weight="bold" text-anchor="middle">0️⃣  Medical Safety Guard  ·  0 tokens · 0 ms</text>
+  <text x="500" y="236" fill="#0B2E36" font-size="13" text-anchor="middle">emergency → 911 + human  ·  prescription ask → safe refusal</text>
+  <line x1="500" y1="248" x2="500" y2="280" stroke="#F4F0E8" stroke-width="2"/>
+  <text x="640" y="272" fill="#F4F0E8" font-size="12">if allowed / symptom</text>
+
+  <!-- tiers -->
+  <g>
+    <rect x="120" y="300" width="230" height="92" rx="10" fill="#0E6E5C"/>
+    <text x="235" y="330" fill="#F4F0E8" font-size="16" font-weight="bold" text-anchor="middle">1️⃣  Local Gemma</text>
+    <text x="235" y="354" fill="#F4F0E8" font-size="13" text-anchor="middle">AMD GPU pod / Ollama</text>
+    <text x="235" y="376" fill="#FF6A3D" font-size="15" font-weight="bold" text-anchor="middle">$0.00</text>
+
+    <rect x="385" y="300" width="230" height="92" rx="10" fill="#0E6E5C"/>
+    <text x="500" y="330" fill="#F4F0E8" font-size="16" font-weight="bold" text-anchor="middle">2️⃣  Fireworks</text>
+    <text x="500" y="354" fill="#F4F0E8" font-size="13" text-anchor="middle">Gemma-2 / Llama · AMD-hosted</text>
+    <text x="500" y="376" fill="#FF6A3D" font-size="13" text-anchor="middle">~$0.20/1M · 1-token judge</text>
+
+    <rect x="650" y="300" width="230" height="92" rx="10" fill="#0E6E5C"/>
+    <text x="765" y="330" fill="#F4F0E8" font-size="16" font-weight="bold" text-anchor="middle">3️⃣  Claude</text>
+    <text x="765" y="354" fill="#F4F0E8" font-size="13" text-anchor="middle">complex + sensitive health</text>
+    <text x="765" y="376" fill="#FF6A3D" font-size="13" text-anchor="middle">only when trust runs out</text>
+  </g>
+  <path d="M235 392 L235 420 L765 420 L765 392" fill="none" stroke="#F4F0E8" stroke-width="1.5" stroke-dasharray="4"/>
+  <text x="500" y="414" fill="#F4F0E8" font-size="12" text-anchor="middle">escalate only if confidence &lt; threshold</text>
+
+  <!-- outcome -->
+  <rect x="300" y="452" width="400" height="52" rx="10" fill="#F4F0E8"/>
+  <text x="500" y="484" fill="#0B2E36" font-size="18" font-weight="bold" text-anchor="middle">84% inference cost cut · clinical quality intact</text>
+
+  <text x="500" y="545" fill="#0E6E5C" font-size="15" text-anchor="middle">We optimize FAQs — never clinical judgment.</text>
+  <text x="500" y="580" fill="#F4F0E8" font-size="14" font-weight="bold" text-anchor="middle">MedBra AI Labs · AMD Developer Hackathon ACT II</text>
+</svg>

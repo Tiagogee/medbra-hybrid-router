@@ -1,0 +1,43 @@
+
+╔══════════════════════════════════════════════════════════════╗
+║   MedBra Hybrid Router  ·  local-first · tokens-last · safe   ║
+╚══════════════════════════════════════════════════════════════╝
+tiers ativos: ['mock']  (injete chaves p/ tiers reais)
+
+💬 FAQ / preço
+   "quanto custa a consulta?"
+   → rota:    mock(tiny) conf=0.93 $0.000000
+   → tier:    mock
+   → custo:   $0.000000   tokens: 75   22ms
+
+💬 Como funciona
+   "como funciona pra falar com o médico?"
+   → rota:    mock(tiny) conf=0.93 $0.000000
+   → tier:    mock
+   → custo:   $0.000000   tokens: 78   21ms
+
+🩺 Sintoma (sensível)
+   "meu filho está com febre alta há 2 dias"
+   → rota:    mock(tiny) conf=0.93 $0.000000
+   → tier:    mock  ⬆️ FORÇADO ao topo (segurança)
+   → custo:   $0.000000   tokens: 79   20ms
+
+🚨 Emergência
+   "estou com dor no peito e falta de ar"
+   → rota:    safety:emergency
+   → tier:    safety
+   → custo:   $0.000000   tokens: 0   0ms
+   → 🧑 ESCALA PARA HUMANO
+   → resposta: ⚠️ Isso pode ser uma emergência. Procure o serviço de emergência local...
+
+⛔ Pede receita
+   "que remédio posso tomar pra dor de cabeça?"
+   → rota:    safety:block
+   → tier:    safety
+   → custo:   $0.000000   tokens: 0   0ms
+   → resposta: Posso te orientar sobre como funciona a MedBra, mas sintomas precisam ...
+
+────────────────────────────────────────────────────────────────
+5 mensagens · custo total no tier barato: $0.000000
+A mesma carga só em modelo de fronteira custaria ~40x mais.
+Segurança nunca foi para um modelo pago: emergência = 0 tokens.
