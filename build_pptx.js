@@ -8,11 +8,15 @@ const S = () => { const s = p.addSlide(); s.background = { color: BG }; return s
 const kick = (s, t) => s.addText(t.toUpperCase(), { x:0.7, y:0.55, w:12, h:0.4, color:CORAL, bold:true, fontSize:14, charSpacing:2, fontFace:"Arial" });
 const foot = (s, l, r) => { s.addText(l, {x:0.7,y:6.95,w:7,h:0.35,color:GREEN,fontSize:11,fontFace:"Arial"}); if(r) s.addText(r,{x:7,y:6.95,w:5.6,h:0.35,color:GREEN,fontSize:11,align:"right",fontFace:"Arial"}); };
 
-// 1 title
-let s = S(); kick(s, "MedBra AI Labs - AMD Hackathon ACT II");
-s.addText("MedBra Hybrid Router", {x:0.7,y:1.8,w:12,h:1.6,color:SAND,bold:true,fontSize:54,fontFace:"Cambria"});
-s.addText("An AI orchestration platform for Portuguese-speaking healthcare -\nrouting medical conversations between local and cloud LLMs.", {x:0.7,y:3.5,w:11,h:1,color:MUT,fontSize:22,fontFace:"Arial"});
-["Gemma on AMD","Fireworks","Live telemedicine startup"].forEach((t,i)=>{ s.addShape("roundRect",{x:0.7+i*3.1,y:4.9,w:2.9,h:0.55,fill:{color:GREEN},rectRadius:0.27}); s.addText(t,{x:0.7+i*3.1,y:4.9,w:2.9,h:0.55,color:SAND,align:"center",fontSize:14,bold:true,fontFace:"Arial"}); });
+// 1 title (hero full-bleed + left gradient scrim for text)
+let s = S();
+s.addImage({path:A+"hero.png",x:0,y:0,w:13.333,h:7.5});
+s.addShape("rect",{x:0,y:0,w:8.2,h:7.5,fill:{color:BG,transparency:22}});
+s.addImage({path:A+"logo_symbol.png",x:0.7,y:0.8,w:0.85,h:0.85});
+kick(s,"MedBra AI Labs - AMD Hackathon ACT II");
+s.addText("MedBra Hybrid Router", {x:0.7,y:2.1,w:8,h:1.6,color:SAND,bold:true,fontSize:52,fontFace:"Cambria"});
+s.addText("An AI orchestration platform for Portuguese-speaking healthcare - routing medical conversations between local and cloud LLMs.", {x:0.7,y:3.7,w:7,h:1.2,color:SAND,fontSize:19,fontFace:"Arial"});
+["Gemma on AMD","Fireworks","Live startup"].forEach((t,i)=>{ s.addShape("roundRect",{x:0.7+i*2.5,y:5.1,w:2.35,h:0.55,fill:{color:GREEN},rectRadius:0.27}); s.addText(t,{x:0.7+i*2.5,y:5.1,w:2.35,h:0.55,color:SAND,align:"center",fontSize:13,bold:true,fontFace:"Arial"}); });
 foot(s,"medbra.tech","github.com/Tiagogee/medbra-hybrid-router");
 
 // 2 problem
@@ -65,11 +69,14 @@ s.addText("Cost stays flat while volume explodes",{x:0.7,y:1.1,w:12,h:0.9,color:
 s.addImage({path:A+"benchmark.png",x:3.2,y:2.0,w:6.9,h:3.97});
 s.addText("~$10k/yr saved at 500k msgs/mo - margin that compounds as we add countries.",{x:0.9,y:6.15,w:11.5,h:0.6,color:MUT,fontSize:18,align:"center",fontFace:"Arial"});
 
-// 10 vision
-s = S(); kick(s,"The Vision");
-s.addText("An operating system for Portuguese-speaking healthcare",{x:0.7,y:1.3,w:12,h:1.4,color:SAND,bold:true,fontSize:34,fontFace:"Cambria"});
-s.addText("The patrimony is not the AI - it is the system that uses any AI in the best way. Model-agnostic by design: survives Claude 6, GPT-6, Gemini Ultra.",{x:0.7,y:3.0,w:11.5,h:1.2,color:MUT,fontSize:20,fontFace:"Arial"});
-s.addText("\"Onde tiver um brasileiro, tem um medico brasileiro.\"",{x:0.7,y:4.4,w:11.5,h:0.9,color:SAND,italic:true,fontSize:26,fontFace:"Cambria"});
+// 10 vision (hero full-bleed)
+s = S();
+s.addImage({path:A+"hero.png",x:0,y:0,w:13.333,h:7.5});
+s.addShape("rect",{x:0,y:0,w:8.2,h:7.5,fill:{color:BG,transparency:18}});
+kick(s,"The Vision");
+s.addText("An operating system for\nPortuguese-speaking healthcare",{x:0.7,y:1.5,w:7.6,h:1.8,color:SAND,bold:true,fontSize:33,fontFace:"Cambria"});
+s.addText("The patrimony is not the AI - it is the system that uses any AI in the best way. Model-agnostic by design: survives Claude 6, GPT-6, Gemini Ultra.",{x:0.7,y:3.5,w:7.2,h:1.4,color:SAND,fontSize:18,fontFace:"Arial"});
+s.addText("\"Onde tiver um brasileiro, tem um medico brasileiro.\"",{x:0.7,y:5.1,w:7.4,h:1,color:SAND,italic:true,fontSize:22,fontFace:"Cambria"});
 foot(s,"MedBra AI Labs - Tiago (CEO) + Axis (AI CTO)","Criciuma -> Orlando -> the world");
 
 p.writeFile({ fileName: "MedBra-Investor-Deck.pptx" }).then(f => console.log("PPTX gerado:", f));

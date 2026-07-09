@@ -21,6 +21,10 @@ img{max-width:100%;border-radius:12px;border:1px solid var(--green)}
 .nav{position:fixed;bottom:16px;right:20px;z-index:9;color:var(--green);font-size:.8rem;background:#06181c;padding:6px 10px;border-radius:8px;border:1px solid var(--green)}
 .mode{position:fixed;top:16px;right:20px;z-index:9;color:var(--sand);font-size:.75rem;background:#06181c;padding:6px 10px;border-radius:8px;border:1px solid var(--coral);cursor:pointer}
 .quote{font-style:italic;color:var(--sand);font-size:1.6rem;border-left:4px solid var(--coral);padding-left:20px;margin-top:20px}
+.hero{background-size:cover;background-position:center}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,var(--bg) 32%,rgba(11,46,54,.72) 50%,rgba(11,46,54,.15) 78%,transparent 100%)}
+.hero>*{position:relative;z-index:2}
+.logo-sym{width:64px;height:auto;margin-bottom:18px;filter:brightness(1.15)}
 .stat{text-align:center}.stat .n{font-size:3rem;font-weight:900;color:var(--coral)}.stat .l{color:var(--green)}
 .stats{display:flex;gap:50px;margin-top:26px}
 @media print{.slide{display:flex!important;page-break-after:always;height:100vh}.nav,.mode{display:none}}
@@ -30,7 +34,8 @@ img{max-width:100%;border-radius:12px;border:1px solid var(--green)}
 <div class="nav" id="nav">← → to navigate · P to print</div>
 
 <!-- 1 TITLE -->
-<section class="slide" data-h="1" data-i="1">
+<section class="slide hero" data-h="1" data-i="1" style="background-image:url('../assets/hero.png')">
+  <img class="logo-sym" src="../assets/logo_symbol.png" alt="MedBra">
   <div class="kicker">MedBra AI Labs · AMD Hackathon ACT II</div>
   <h1>MedBra<br>Hybrid Router</h1>
   <p>An AI orchestration platform for Portuguese-speaking healthcare — routing medical conversations between local and cloud LLMs.</p>
@@ -127,7 +132,7 @@ img{max-width:100%;border-radius:12px;border:1px solid var(--green)}
 </section>
 
 <!-- 10 VISION -->
-<section class="slide" data-h="1" data-i="10">
+<section class="slide hero" data-h="1" data-i="10" style="background-image:url('../assets/hero.png')">
   <div class="kicker">The Vision</div>
   <h2>An operating system for Portuguese-speaking healthcare</h2>
   <p>The patrimony isn't the AI — it's the system that uses <i>any</i> AI in the best way. Model-agnostic by design: survives Claude 6, GPT-6, Gemini Ultra.</p>
